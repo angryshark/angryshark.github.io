@@ -28,7 +28,9 @@ function doSearch() {
 	} else {
         dotsToStart();
         videoItems.addEventListener('mousedown',dragStart);
+        videoItems.addEventListener('touchstart',dragStart);
         videoItems.addEventListener('mouseup',dragEnd);  
+        videoItems.addEventListener('touchend',dragEnd);
         searchString = inputString.value;
         getResponse(searchString, pageToken);
     }
