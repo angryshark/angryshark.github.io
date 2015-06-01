@@ -141,9 +141,10 @@ function dragStart(e){
     videoItems.addEventListener('touchmove',drag);
     var touch;
     if(e.changedTouches) {
-        touch = event.changedTouches[0];
+        touch = e.changedTouches[0];
         startX = touch.pageX;
     }
+
 }
 
 function drag(e){
@@ -151,7 +152,7 @@ function drag(e){
     var touch;
     dragX = e.clientX;
     if(e.changedTouches) {
-        touch = event.changedTouches[0];
+        touch = e.changedTouches[0];
         dragX = touch.pageX;
     }
     diffX = dragX - startX;
