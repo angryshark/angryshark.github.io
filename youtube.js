@@ -28,9 +28,9 @@ function doSearch() {
 	} else {
         dotsToStart();
         videoItems.addEventListener('mousedown',dragStart);
+        videoItems.addEventListener('mouseup',dragEnd);
         videoItems.addEventListener('touchstart',dragStart);
-        videoItems.addEventListener('mouseup',dragEnd);  
-        videoItems.addEventListener('touchend',dragEnd);
+        videoItems.addEventListener('touchend',dragEnd);    
         searchString = inputString.value;
         getResponse(searchString, pageToken);
     }
@@ -134,19 +134,33 @@ var numOfPageLoaded;
 var primaryWidthStage = document.body.offsetWidth;
 
 function dragStart(e){
+    e.preventDefault();
     videoItems.style.transition = "all 0.0s ease-in-out"
     startX = e.clientX;
     videoItems.addEventListener('mousemove',drag);
+    videoItems.addEventListener('touchmove',drag);
+    var touch;
+    if(e.changedTouches) {
+        touch = event.changedTouches[0];
+        startX = touch.pageX;
+    }
 }
 
 function drag(e){
+    e.preventDefault();
+    var touch;
     dragX = e.clientX;
+    if(e.changedTouches) {
+        touch = event.changedTouches[0];
+        dragX = touch.pageX;
+    }
     diffX = dragX - startX;
     videoItems.style.webkitTransform = "translateX(" + (diffX + previousDiffX) + "px)";
 }
 
 function dragEnd(e){
     videoItems.removeEventListener('mousemove',drag);   
+    videoItems.removeEventListener('touchmove',drag); 
     videoItems.style.transition = "all 0.5s ease-in-out 0s";
 
     var endOfVideos = 100;
